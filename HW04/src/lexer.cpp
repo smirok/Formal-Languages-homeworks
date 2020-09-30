@@ -22,7 +22,10 @@ int Reader::getColumn() const {
     return _is_newline ? prev_column + 1 : _column;
 }
 
-void Lexer::lex() {
+bool Lexer::lex(std::string file) try {
+    _reader = Reader(std::move(file));
+    _current_lexeme = lexeme::Nothing;
+    _lexemes_list.clear();
     std::string cur_identifier;
 
     while (true) {
@@ -43,12 +46,14 @@ void Lexer::lex() {
         }
 
         if (sym == '\0') {
-            return;
+            return true;
         }
     }
+} catch (...) {
+    return false;
 }
 
-std::vector<Lexeme_info *> Lexer::getLexemesList() const {
+std::vector<Lexeme_info *> &Lexer::getLexemesList() {
     return _lexemes_list;
 }
 
@@ -107,7 +112,7 @@ void Lexer::lexCorkscrew(char sym) {
 void Lexer::lexNothing(std::string &cur_identifier, char sym) {
     if (sym == ':') {
         _current_lexeme = lexeme::Corkscrew;
-    } else if (valid_identify(sym)) {
+    } else if (valid_identify(sym, _current_lexeme)) {
         cur_identifier += sym;
         _current_lexeme = lexeme::Identifier;
     } else
@@ -115,7 +120,7 @@ void Lexer::lexNothing(std::string &cur_identifier, char sym) {
 }
 
 void Lexer::lexIdentifier(std::string &cur_identifier, char sym) {
-    if (valid_identify(sym)) {
+    if (valid_identify(sym, _current_lexeme)) {
         cur_identifier += sym;
         _current_lexeme = lexeme::Identifier;
     } else {
@@ -128,8 +133,10 @@ void Lexer::lexIdentifier(std::string &cur_identifier, char sym) {
     }
 }
 
-bool valid_identify(char sym) {
-    if (sym == '_' || (sym >= '0' && sym <= '9') || (sym >= 'a' && sym <= 'z') || (sym >= 'A' && sym <= 'Z'))
-        return true;
-    return false;
+bool valid_identify(char sym, lexeme cur_lexeme) {
+    if (cur_lexeme == lexeme::Identifier) {
+        return sym == '_' || (sym >= '0' && sym <= '9') || (sym >= 'a' && sym <= 'z') || (sym >= 'A' && sym <= 'Z');
+    } else {
+        return sym == '_' || (sym >= 'a' && sym <= 'z') || (sym >= 'A' && sym <= 'Z');
+    }
 }

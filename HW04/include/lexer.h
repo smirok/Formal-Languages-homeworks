@@ -18,6 +18,7 @@ enum lexeme {
 
 class Reader {
 public:
+    Reader() = default;
     explicit Reader(std::string file) : _file(std::move(file)) {};
 
     char readChar();
@@ -54,16 +55,19 @@ struct Identifier_info : public Lexeme_info {
 
 class Lexer {
 public:
-    explicit Lexer(std::string file) : _reader(Reader(std::move(file))) {};
+    explicit Lexer() {};
 
-    void lex();
+    bool lex(std::string file);
 
-    std::vector<Lexeme_info *> getLexemesList() const;
+    std::vector<Lexeme_info *> &getLexemesList();
 
 private:
     void lexCharKeywords(char sym);
+
     void lexCorkscrew(char sym);
+
     void lexNothing(std::string &cur_identifier, char sym);
+
     void lexIdentifier(std::string &cur_identifier, char sym);
 
     Reader _reader;
@@ -71,6 +75,6 @@ private:
     std::vector<Lexeme_info *> _lexemes_list;
 };
 
-bool valid_identify(char sym);
+bool valid_identify(char sym, lexeme cur_lexema);
 
 #endif //HW04_LEXER_H

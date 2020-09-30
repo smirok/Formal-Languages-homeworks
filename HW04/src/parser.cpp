@@ -70,12 +70,17 @@ bool Parser::parseLexeme(lexeme lexema) {
     return true;
 }
 
-void Parser::parse() {
+bool Parser::parse() {
     while (_cur_pos != _lexemes_list.size()) {
         if (!parseRelation()) {
-            std::cerr << "Syntax error: line " << _lexemes_list[_error_pos]->_line << ", col: "
-                      << _lexemes_list[_error_pos]->_col << "\n";
-            throw std::exception();
+            if (_error_pos == _lexemes_list.size()) {
+                std::cout << "Syntax error: EOF" << "\n";
+            } else {
+                std::cout << "Syntax error: line " << _lexemes_list[_error_pos]->_line << ", col: "
+                          << _lexemes_list[_error_pos]->_col << "\n";
+            }
+            return false;
         }
     }
+    return true;
 }
