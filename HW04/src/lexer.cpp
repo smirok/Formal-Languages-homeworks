@@ -35,7 +35,6 @@ void Lexer::lex() {
             }
             case Identifier: {
                 lexIdentifier(cur_identifier, sym);
-                break;
             }
             case Nothing: {
                 lexNothing(cur_identifier, sym);

@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories(include)
 
-add_executable(HW04 main.cpp src/lexer.cpp include/lexer.h)
+add_executable(HW04 main.cpp src/lexer.cpp include/lexer.h src/parser.cpp include/parser.h)

@@ -1,10 +1,10 @@
 #include "lexer.h"
+#include "parser.h"
 
 #include <iostream>
 #include <fstream>
 #include <iterator>
 //using namespace std;
-
 
 
 std::string read_file(const std::string &file_name) {
@@ -63,5 +63,8 @@ int main() {
     auto x = lexer.getLexemesList();
 
     printLexResult(x);
+
+    Parser parser(x);
+    parser.parse();
     return 0;
 }
