@@ -1,6 +1,6 @@
 ### Description
 
-[Prolog](https://github.com/Azure/azure-content/blob/master/contributor-guide/contributor-guide-index.md) parser using [recursive descent method](https://en.wikipedia.org/wiki/Recursive_descent_parser)
+[Prolog](https://github.com/Azure/azure-content/blob/master/contributor-guide/contributor-guide-index.md) parser using [recursive descent method](https://en.wikipedia.org/wiki/Recursive_descent_parser) with custom lexer
 
 ### Build & run
 
