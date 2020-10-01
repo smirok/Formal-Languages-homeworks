@@ -1,27 +1,5 @@
 #include "lexer.h"
 
-char Reader::readChar() {
-    char cur_char = _file[_pos++];
-    if (cur_char == '\n') {
-        _line++;
-        prev_column = _column;
-        _column = -1;
-        _is_newline = true;
-    } else {
-        _column++;
-        _is_newline = false;
-    }
-    return cur_char;
-}
-
-int Reader::getLine() const {
-    return _line - (_is_newline ? 1 : 0);
-}
-
-int Reader::getColumn() const {
-    return _is_newline ? prev_column + 1 : _column;
-}
-
 bool Lexer::lex(std::string file) try {
     _reader = Reader(std::move(file));
     _current_lexeme = lexeme::Nothing;
@@ -85,14 +63,12 @@ void Lexer::lexCharKeywords(char sym) {
             );
             break;
         case ' ':
-            break;
         case '\n':
             break;
-        case '\0': {
+        case '\0':
             if (_current_lexeme == lexeme::Corkscrew)
                 throw std::exception();
             break;
-        }
         default:
             throw std::exception();
     }

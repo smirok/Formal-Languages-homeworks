@@ -8,6 +8,9 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(../include)
 add_subdirectory(benchmark)
 
-add_executable(parserBenchmark ../src/parser.cpp ../include/parser.h ../include/lexer.h ../src/lexer.cpp benchmarks.cpp)
+add_executable(parserBenchmark
+        ../src/parser.cpp ../include/parser.h
+        ../src/lexer.cpp ../include/lexer.h
+        ../src/reader.cpp ../include/reader.h benchmarks.cpp)
 
 target_link_libraries(parserBenchmark benchmark::benchmark)

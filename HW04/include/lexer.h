@@ -1,7 +1,8 @@
 #ifndef HW04_LEXER_H
 #define HW04_LEXER_H
 
-#include <string>
+#include "reader.h"
+
 #include <utility>
 #include <vector>
 
@@ -14,26 +15,6 @@ enum lexeme {
     OpenBracket,
     CloseBracket,
     Nothing
-};
-
-class Reader {
-public:
-    Reader() = default;
-    explicit Reader(std::string file) : _file(std::move(file)) {};
-
-    char readChar();
-
-    int getLine() const;
-
-    int getColumn() const;
-
-private:
-    std::string _file;
-    bool _is_newline = false;
-    int _line = 0;
-    int _column = -1;
-    int _pos = 0;
-    int prev_column = -1;
 };
 
 struct Lexeme_info {
@@ -55,7 +36,7 @@ struct Identifier_info : public Lexeme_info {
 
 class Lexer {
 public:
-    explicit Lexer() {};
+    explicit Lexer() = default;
 
     bool lex(std::string file);
 
@@ -63,11 +44,8 @@ public:
 
 private:
     void lexCharKeywords(char sym);
-
     void lexCorkscrew(char sym);
-
     void lexNothing(std::string &cur_identifier, char sym);
-
     void lexIdentifier(std::string &cur_identifier, char sym);
 
     Reader _reader;
@@ -75,6 +53,6 @@ private:
     std::vector<Lexeme_info *> _lexemes_list;
 };
 
-bool valid_identify(char sym, lexeme cur_lexema);
+bool valid_identify(char sym, lexeme cur_lexeme);
 
 #endif //HW04_LEXER_H

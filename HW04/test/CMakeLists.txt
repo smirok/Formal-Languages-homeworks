@@ -5,4 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories(../include)
 
-add_executable(parserTest ../src/parser.cpp ../include/parser.h ../src/lexer.cpp ../include/lexer.h TestMain.cpp)
+add_executable(parserTest
+        ../src/parser.cpp ../include/parser.h
+        ../src/lexer.cpp ../include/lexer.h
+        ../src/reader.cpp ../include/reader.h TestMain.cpp)
