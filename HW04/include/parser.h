@@ -14,10 +14,9 @@ private:
     bool parseDisjunction();
     bool parseConjunction();
     bool parseTerminal();
-    bool parseLexeme(lexeme lexema);
+    bool parseLexeme(lexeme cur_lexeme);
 
     int _cur_pos = 0;
-    int _error_pos = -1;
     std::vector<Lexeme_info *>& _lexemes_list;
 };
 
