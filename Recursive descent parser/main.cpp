@@ -11,6 +11,7 @@ std::string read_file(const std::string &file_name) {
 }
 
 void printLexResult(std::vector<Lexeme_info *> &list) {
+    std::cout << "Lex results:\n";
     int i = 0;
     for (auto &info : list) {
         std::cout << ++i << ") ";
@@ -45,17 +46,15 @@ void printLexResult(std::vector<Lexeme_info *> &list) {
     }
 }
 
-int main() {
-    std::string file_name;
-    std::cin >> file_name;
-
-    std::string file = read_file(file_name);
+int main(int argc, char* argv[]) {
+    std::string file = read_file(argv[1]);
     Lexer lexer;
     lexer.lex(file);
     auto &x = lexer.getLexemesList();
 
     printLexResult(x);
-
+    
+    std::cout << "Parse result:\n";	
     Parser parser(x);
     if (parser.parse())
         std::cout << "OK";
