@@ -14,7 +14,7 @@ bool Lexer::lex(std::string file) try {
             continue;
         }
         if (_current_lexeme == lexeme::Identifier)
-            lexIdentifier(cur_identifier,sym);
+            lexIdentifier(cur_identifier, sym);
         if (_current_lexeme == lexeme::Nothing)
             lexNothing(cur_identifier, sym);
 
@@ -58,6 +58,7 @@ void Lexer::lexCharKeywords(char sym) {
             );
             break;
         case ' ':
+        case '\t':
         case '\n':
             break;
         case '\0':
