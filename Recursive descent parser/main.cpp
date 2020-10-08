@@ -49,7 +49,10 @@ void printLexResult(std::vector<Lexeme_info *> &list) {
 int main(int argc, char* argv[]) {
     std::string file = read_file(argv[1]);
     Lexer lexer;
-    lexer.lex(file);
+    if (!lexer.lex(file)) {
+        std::cout << "Lexing error\n";
+        return 0;
+    }
     auto &x = lexer.getLexemesList();
 
     printLexResult(x);

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "lexer.h"
 
 bool Lexer::lex(std::string file) try {
@@ -8,20 +9,14 @@ bool Lexer::lex(std::string file) try {
 
     while (true) {
         char sym = _reader.readChar();
-
-        switch (_current_lexeme) {
-            case Corkscrew: {
-                lexCorkscrew(sym);
-                break;
-            }
-            case Identifier: {
-                lexIdentifier(cur_identifier, sym);
-            }
-            case Nothing: {
-                lexNothing(cur_identifier, sym);
-                break;
-            }
+        if (_current_lexeme == lexeme::Corkscrew) {
+            lexCorkscrew(sym);
+            continue;
         }
+        if (_current_lexeme == lexeme::Identifier)
+            lexIdentifier(cur_identifier,sym);
+        if (_current_lexeme == lexeme::Nothing)
+            lexNothing(cur_identifier, sym);
 
         if (sym == '\0') {
             return true;
@@ -91,8 +86,11 @@ void Lexer::lexNothing(std::string &cur_identifier, char sym) {
     } else if (valid_identify(sym, _current_lexeme)) {
         cur_identifier += sym;
         _current_lexeme = lexeme::Identifier;
-    } else
+    } else if (sym < '0' || sym > '9') {
         lexCharKeywords(sym);
+    } else {
+        throw std::exception();
+    }
 }
 
 void Lexer::lexIdentifier(std::string &cur_identifier, char sym) {

@@ -29,7 +29,7 @@ bool Parser::parseConjunction() {
         return false;
 
     if (parseLexeme(lexeme::Comma))
-        return parseTerminal();
+        return parseConjunction();
 
     return true;
 }
