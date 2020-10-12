@@ -93,7 +93,6 @@ def step(input_file):
     if definition_list[-1].count('\n') + definition_list[-1].count(' ') == len(definition_list[-1]):
         definition_list.pop()
 
-
     for definition in definition_list:
         try:
             parser.parse(definition)
@@ -113,4 +112,7 @@ def step(input_file):
 parser = yacc.yacc(start="definition")
 
 if __name__ == '__main__':
-    step(f'{sys.argv[1]}')
+    try:
+        step(f'{sys.argv[1]}')
+    except Exception as e:
+        print(e.args[0])

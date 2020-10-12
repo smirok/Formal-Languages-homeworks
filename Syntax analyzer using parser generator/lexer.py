@@ -28,7 +28,7 @@ def t_newline(t):
 
 def t_error(t):
     print(f'Illegal character {t.value[0]}')
-    t.lexer.skip(1)
+    raise Exception("Lexing error")
 
 
 def token_column(string: str, token) -> int:
