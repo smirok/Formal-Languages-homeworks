@@ -1,10 +1,10 @@
 ### Description
 
-Prolog parser using [yacc](https://ru.wikipedia.org/wiki/Yacc)
+[Prolog](http://teyjus.cs.umn.edu/) parser using [yacc](https://ru.wikipedia.org/wiki/Yacc)
 
 ### Build & run
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 python parser.py <filename>
 ```
 
