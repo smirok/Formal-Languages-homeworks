@@ -69,7 +69,8 @@ def p_atom(p):
 def p_inneratom(p):
     """inneratom : ID
                  | ID inneratom
-                 | OPEN_BRACKET inneratom CLOSE_BRACKET """
+                 | OPEN_BRACKET inneratom CLOSE_BRACKET
+                 | OPEN_BRACKET inneratom CLOSE_BRACKET inneratom"""
     if len(p) == 2:
         p[0] = Node('ATOM', [Node(f'ID {p[1]}')])
     if len(p) == 3:
@@ -78,6 +79,10 @@ def p_inneratom(p):
         p[0] = Node('ATOM', [Node('OBR'),
                              p[2],
                              Node('CBR')])
+    if len(p) == 5:
+        p[0] = Node('ATOM', [Node('OBR'),
+                             p[2],
+                             Node('CBR'), p[4]])
 
 
 def p_error(p):
