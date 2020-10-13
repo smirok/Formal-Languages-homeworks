@@ -50,7 +50,7 @@ def p_expression(p):
 def p_atom(p):
     """atom : ID
             | ID atom
-            | ID OPEN_BRACKET inneratom CLOSE_BRACKET inneratom
+            | ID OPEN_BRACKET inneratom CLOSE_BRACKET seqatom
             | ID OPEN_BRACKET inneratom CLOSE_BRACKET"""
     if len(p) == 2:
         p[0] = Node('ATOM', [Node(f'ID {p[1]}')])
@@ -66,15 +66,12 @@ def p_atom(p):
                              p[3], Node('CBR'), p[5]])
 
 
-def p_inneratom(p):
-    """inneratom : ID
-                 | ID inneratom
-                 | OPEN_BRACKET inneratom CLOSE_BRACKET
-                 | OPEN_BRACKET inneratom CLOSE_BRACKET inneratom"""
+def p_seqatom(p):
+    """seqatom : ID
+               | OPEN_BRACKET atom CLOSE_BRACKET
+               | OPEN_BRACKET atom CLOSE_BRACKET seqatom"""
     if len(p) == 2:
         p[0] = Node('ATOM', [Node(f'ID {p[1]}')])
-    if len(p) == 3:
-        p[0] = Node('ATOM', [Node(f'ID {p[1]}'), p[2]])
     if len(p) == 4:
         p[0] = Node('ATOM', [Node('OBR'),
                              p[2],
@@ -83,6 +80,16 @@ def p_inneratom(p):
         p[0] = Node('ATOM', [Node('OBR'),
                              p[2],
                              Node('CBR'), p[4]])
+
+def p_inneratom(p):
+    """inneratom : OPEN_BRACKET inneratom CLOSE_BRACKET
+                 | atom"""
+    if len(p) == 2:
+        p[0] = p[1]
+    if len(p) == 4:
+        p[0] = Node('ATOM', [Node('OBR'),
+                             p[2],
+                             Node('CBR')])
 
 
 def p_error(p):

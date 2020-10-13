@@ -195,16 +195,14 @@ def test_integrate_true_so_hard(tmp_path, monkeypatch, capsys):
     out, err = capsys.readouterr()
     assert err == ''
     assert out == ''
-    assert open('a.out', 'r').read() == 'DEFINITION\n--ATOM\n----ID odd\n----OBR\n----ATOM\n' \
-                                        '------ID cons\n------ATOM\n--------ID H\n--------ATOM\n' \
-                                        '----------OBR\n----------ATOM\n------------ID cons\n' \
-                                        '------------ATOM\n--------------ID H1\n--------------ATOM\n' \
-                                        '----------------ID T\n----------CBR\n----CBR\n----ATOM\n------OBR\n' \
-                                        '------ATOM\n--------ID cons\n--------ATOM\n----------ID H\n' \
-                                        '----------ATOM\n------------ID T1\n------CBR\n--:-\n--DISJ\n----CONJ\n' \
-                                        '------EXPRESSION\n--------ATOM\n----------ID odd\n----------ATOM\n' \
-                                        '------------ID T\n------------ATOM\n--------------ID T1\n' \
-                                        '--.\nDEFINITION\n--ATOM\n----ID odd\n----OBR\n----ATOM\n------ID cons\n' \
-                                        '------ATOM\n--------ID H\n--------ATOM\n----------ID nil\n----CBR\n' \
-                                        '----ATOM\n------ID nil\n--.\nDEFINITION\n--ATOM\n----ID odd\n----ATOM\n' \
-                                        '------ID nil\n------ATOM\n--------ID nil\n--.\n'
+    assert open('a.out', 'r').read() == 'DEFINITION\n--ATOM\n----ID odd\n----OBR\n----ATOM\n------ID cons\n' \
+                                        '------ATOM\n--------ID H\n--------OBR\n--------ATOM\n----------ID cons\n' \
+                                        '----------ATOM\n------------ID H1\n------------ATOM\n--------------ID T\n' \
+                                        '--------CBR\n----CBR\n----ATOM\n------OBR\n------ATOM\n--------ID cons\n' \
+                                        '--------ATOM\n----------ID H\n----------ATOM\n------------ID T1\n' \
+                                        '------CBR\n--:-\n--DISJ\n----CONJ\n------EXPRESSION\n--------ATOM\n' \
+                                        '----------ID odd\n----------ATOM\n------------ID T\n------------ATOM\n' \
+                                        '--------------ID T1\n--.\nDEFINITION\n--ATOM\n----ID odd\n----OBR\n' \
+                                        '----ATOM\n------ID cons\n------ATOM\n--------ID H\n--------ATOM\n' \
+                                        '----------ID nil\n----CBR\n----ATOM\n------ID nil\n--.\nDEFINITION\n' \
+                                        '--ATOM\n----ID odd\n----ATOM\n------ID nil\n------ATOM\n--------ID nil\n--.\n'
