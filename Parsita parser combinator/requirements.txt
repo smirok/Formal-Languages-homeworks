@@ -1,0 +1,2 @@
+parsita~=1.4.0
+pytest~=6.1.1
