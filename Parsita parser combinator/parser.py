@@ -40,8 +40,8 @@ class Parser(TextParsers, whitespace=r'[ \n\t]*'):
     out_definition = lambda x: f'(DEF {x[0][0]} {x[0][2]})' if len(x[0]) == 3 else f'(DEF {x[0]})'
     definition = ((atom & CORKSCREW & disjunction | atom) & DOT) > out_definition
 
-    module_output = lambda x: f'({x[0]} {x[1]})'
-    module = (keyword_module & ident & DOT) > module_output
+    module_output = lambda x: f'({x[0][0]} {x[0][1]})' if len(x) > 0 else ''
+    module = opt(keyword_module & ident & DOT) > module_output
 
     out_local_t_sequence = lambda x: f'(TYPE {" ".join(x)})'
     type_item = (atom | var | ident) | (OBR >> type_item << CBR) | (
@@ -62,7 +62,8 @@ class Parser(TextParsers, whitespace=r'[ \n\t]*'):
 
     LIST = usual_list | haskell_list
 
-    out_program = lambda x: x[0] + "!" + "!".join(x[1]) + "!" + "!".join(x[2])
+    out_program = lambda x: x[0] + ("!" if x[1] != [] else '') + "!".join(x[1]) + ("!" if x[2] != [] else '') \
+                            + "!".join(x[2])
     program = (module & rep(type_def) & rep(definition)) > out_program
 
 
@@ -99,4 +100,4 @@ def step(file_name: str, mode: str):
 
 
 if __name__ == '__main__':
-    step(sys.argv[1], sys.argv[2])
+    step(sys.argv[2], sys.argv[1])
