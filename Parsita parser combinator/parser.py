@@ -24,7 +24,9 @@ class Parser(TextParsers, whitespace=r'[ \n\t]*'):
     COMMA = lit(',') > (lambda _: '')
     RIGHTARROW = lit('->') > (lambda _: '')
 
-    subatom = (OBR >> subatom << CBR) | atom
+    subatom = ((OBR >> ident << CBR) > (lambda x: f'(ATOM {x})')) | \
+              ((OBR >> atom << CBR) > (lambda x: f'({x})')) | \
+              (OBR >> subatom << CBR) | atom
     out_atom = lambda x: f'(ATOM {x[0]} {" ".join(list(x[1]))})' if x[1] != [] else f'(ATOM {x[0]})'
     atom = ident & rep(subatom | ident | var | LIST) > out_atom
 

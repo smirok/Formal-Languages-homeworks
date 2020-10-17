@@ -39,8 +39,8 @@ def test_atom_4(tmp_path, monkeypatch, capsys):
     out, err = capsys.readouterr()
     assert err == ''
     assert out == ''
-    assert open('a.out', 'r').read() == '(ATOM (ID g) (ATOM (ID a) (ATOM (ID b))) (ATOM (ID cd)' \
-                                        ' (ATOM (ID f))) (ATOM (ID s)))\n'
+    assert open('a.out', 'r').read() == '(ATOM (ID g) ((ATOM (ID a) (ATOM (ID b)))) ((ATOM (ID cd)' \
+                                        ' (ATOM (ID f)))) (ATOM (ID s)))\n'
 
 
 def test_atom_5(tmp_path, monkeypatch, capsys):
@@ -80,8 +80,8 @@ def test_atom_var_1(tmp_path, monkeypatch, capsys):
     out, err = capsys.readouterr()
     assert err == ''
     assert out == ''
-    assert open('a.out', 'r').read() == '(ATOM (ID g) (ATOM (ID x) (VAR X)) ' \
-                                        '(ATOM (ID x) (VAR Y)) (ATOM (ID f)))\n'
+    assert open('a.out', 'r').read() == '(ATOM (ID g) ((ATOM (ID x) (VAR X))) ' \
+                                        '((ATOM (ID x) (VAR Y))) (ATOM (ID f)))\n'
 
 
 def test_atom_var_2(tmp_path, monkeypatch, capsys):
@@ -372,7 +372,7 @@ def test_relation_10(tmp_path, monkeypatch, capsys):
     out, err = capsys.readouterr()
     assert err == ''
     assert out == ''
-    assert open('a.out', 'r').read() == '(DEF (ATOM (ID a) (ATOM (ID b) (ATOM (ID c))))' \
+    assert open('a.out', 'r').read() == '(DEF (ATOM (ID a) ((ATOM (ID b) (ATOM (ID c)))))' \
                                         ' (ATOM (ID a) (ATOM (ID b))))\n'
 
 
@@ -413,7 +413,7 @@ def test_list_4(tmp_path, monkeypatch, capsys):
     out, err = capsys.readouterr()
     assert err == ''
     assert out == ''
-    assert open('a.out', 'r').read() == '(cons (ATOM (ID a) (ATOM (ID b) (ATOM (ID c))))' \
+    assert open('a.out', 'r').read() == '(cons (ATOM (ID a) ((ATOM (ID b) (ATOM (ID c)))))' \
                                         ' (cons (VAR B) (cons (VAR C) nil)))\n'
 
 
